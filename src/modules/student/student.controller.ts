@@ -9,7 +9,6 @@ const createStudent = async (req: Request, res: Response) => {
     const result = await StudentServices.createStudentToDB(student);
 
     // send response
-
     res.status(200).json({
       success: true,
       message: "Student is created succesfully",
@@ -20,6 +19,39 @@ const createStudent = async (req: Request, res: Response) => {
   }
 };
 
+const getAllStudents = async (req: Request, res: Response) => {
+  try {
+    const result = await StudentServices.getAllStudentsFromDB();
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: "Students retrieved succesfully",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getSingleStudent = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+    const result = await StudentServices.getSignleStudentFromDB(studentId);
+
+    // send reponse
+    res.status(200).json({
+      success: true,
+      message: "Student retrieved succesfully",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const StudentController = {
   createStudent,
+  getAllStudents,
+  getSingleStudent,
 };

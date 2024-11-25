@@ -1,18 +1,19 @@
-export type Guardian = {
+// student.interface.ts
+export interface LocalGuardian {
+  name: string;
+  occupation: string;
+  contactNo: string;
+  address: string;
+}
+
+export interface Guardian {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
   mothersName: string;
   mothersOccupation: string;
   motherContactNo: string;
-};
-
-export type LocalGuardian = {
-  name: string;
-  occupation: string;
-  contactNo: string;
-  address: string;
-};
+}
 
 export interface IStudent {
   id: string;

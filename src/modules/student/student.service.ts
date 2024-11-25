@@ -16,8 +16,25 @@ const getSignleStudentFromDB = async (id: string) => {
   return result;
 };
 
+const updateStudentInDB = async (
+  id: string,
+  updateData: Record<string, any>
+) => {
+  const updatedStudent = await StudentModel.findOneAndUpdate(
+    { id },
+    updateData,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  return updatedStudent;
+};
+
 export const StudentServices = {
   createStudentToDB,
   getAllStudentsFromDB,
   getSignleStudentFromDB,
+  updateStudentInDB,
 };

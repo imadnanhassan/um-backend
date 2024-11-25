@@ -15,7 +15,11 @@ const createStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error,
+    });
   }
 };
 
@@ -30,7 +34,11 @@ const getAllStudents = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error,
+    });
   }
 };
 
@@ -46,7 +54,37 @@ const getSingleStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error,
+    });
+  }
+};
+
+const updateStudent = async (req: Request, res: Response) => {
+  try {
+    const studentId = req.params.studentId;
+    const updateData = req.body;
+
+    const updatedStudent = await StudentServices.updateStudentInDB(
+      studentId,
+      updateData
+    );
+
+    if (!updatedStudent) {
+      return res
+        .status(404)
+        .json({ message: "Student not found or update failed" });
+    }
+
+    res.status(200).json(updatedStudent);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error,
+    });
   }
 };
 
@@ -54,4 +92,5 @@ export const StudentController = {
   createStudent,
   getAllStudents,
   getSingleStudent,
+  updateStudent,
 };
